@@ -5,9 +5,12 @@ package com.fs.properties;
 
 import com.fs.support.SecurityConstants;
 
-/**
- * @author zhailiang
- *
+/****
+ * Session属性基础配置
+ * @ClassName SessionProperties
+ * @Description TODO
+ * @author wang.yalei@fujisoft-china.com
+ * @date 2018年1月31日
  */
 public class SessionProperties {
 	
