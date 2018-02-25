@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.mapper.BlTopicMapper">
+    <sql id="dataColumns">
+            id ,
+            topic_name ,
+            create_user ,
+            date_format(create_date,'%Y-%m-%d') as create_date,
+            update_user ,
+            update_date 
+    </sql>
+
+    <insert id="insert" parameterType="com.fs.entity.BlTopic"> 
+        INSERT INTO bl_topic( 
+            id ,
+            topic_name ,
+            create_user ,
+            create_date ,
+            update_user ,
+            update_date 
+        )VALUES(
+            #{id} ,
+            #{topicName} ,
+            #{createUser} ,
+            #{createDate} ,
+            #{updateUser} ,
+            #{updateDate} 
+       ) 
+    </insert> 
+
+    <delete id="deleteBatchIds" parameterType="String"> 
+        DELETE FROM bl_topic  WHERE id IN
+        <foreach collection="ids" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="com.fs.entity.BlTopic"> 
+        UPDATE bl_topic 
+            <set>
+               <if test="id != null">id= #{id},</if>
+               <if test="topicName != null">topic_name= #{topicName},</if>
+               <if test="createUser != null">create_user= #{createUser},</if>
+               <if test="createDate != null">create_date= #{createDate},</if>
+               <if test="updateUser != null">update_user= #{updateUser},</if>
+               <if test="updateDate != null">update_date= #{updateDate},</if>
+            </set>
+         WHERE id = #{id}
+    </update>
+
+    <select id="queryByKey" parameterType="String" resultType="com.fs.entity.BlTopic"> 
+        SELECT 
+           <include refid="dataColumns"/> 
+        FROM bl_topic
+        WHERE id = #{id}
+    </select>
+
+    <select id="queryByMap" parameterType="java.util.Map" resultType="com.fs.entity.BlTopic"> 
+        SELECT 
+           <include refid="dataColumns"/> 
+        FROM bl_topic
+        <where>
+            <if test="id != null">id= #{id}</if>
+            <if test="topicName != null">topic_name= #{topicName}</if>
+            <if test="createUser != null">create_user= #{createUser}</if>
+            <if test="createDate != null">create_date= #{createDate}</if>
+            <if test="updateUser != null">update_user= #{updateUser}</if>
+            <if test="updateDate != null">update_date= #{updateDate}</if>
+        </where>
+    </select>
+
+    <select id="queryAllList" resultType="com.fs.entity.BlTopic"> 
+		SELECT 
+			t.id ,
+			t.topic_name ,
+			t.create_user ,
+			t.create_date ,
+			t.update_user ,
+			t.update_date ,
+			COUNT(a.title) as articleNum	
+		FROM
+			bl_topic t LEFT JOIN bl_article a ON t.id = a.topic
+			GROUP BY t.id ORDER By t.update_date DESC
+    </select>
+</mapper>

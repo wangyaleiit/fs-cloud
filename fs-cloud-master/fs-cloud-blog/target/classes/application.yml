@@ -1,0 +1,80 @@
+server:
+  port: 8888
+#  session:
+#    timeout: 10
+    
+spring: 
+  session:
+    store-type: none 
+  datasource:
+    druid: 
+      url: jdbc:mysql://localhost:3306/wyltest2?prepStmtCacheSize=517&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+      driverClassName: com.mysql.jdbc.Driver
+      username: root
+      password: root
+      filters: stat,slf4j,wall 
+      initialSize: 10
+      maxActive: 100
+      maxWait: 60000
+      minIdle: 10
+      logAbandoned: true
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      removeAbandoned: true
+      validationQuery: SELECT X FROM DUAL
+      removeAbandonedTimeout: 1800
+      poolPreparedStatements: false
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      maxPoolPreparedStatementPerConnectionSize: 20
+  logging: 
+     config: classpath:logback-spring.xml
+
+mybatis:   
+  mapperLocations: classpath:config/mybatis/*/*.xml
+  typeAliasesPackage: com.fs.entity
+  check-config-location: true
+  config-location: classpath:mybatis-config.xml
+
+# 权限配置
+
+# 
+#security:
+#  oauth2:
+#    client:
+#      client-id: wylBlog
+#      client-secret: wylBlog-secret
+fs:
+  security: 
+    browser: 
+      signUpUrl: /signUp.html
+      loginPage: /demo_signIn.html
+      signOutUrl: /logout.html
+      loginType: JSON
+      rememberMeSeconds: 300
+#    code: 
+#      image: 
+#        length: 
+#        width: 
+#        url: /user,/user/*
+    social: 
+      filterProcessesUrl: /qqLogin
+      qq: 
+        appId: 100550231
+        appSecret: 4444444444444
+        providerId: callback.do
+      weixin: 
+        appId: wxd99431bbff8305a0
+        appSecret: 60f78681d063590a469f1b297feff3c4
+    oauth2:
+      # 对多个应用进行配置
+      clients[0]:
+        clientId: wylBlog
+        clientSecret: wylBlog-secret
+        accessTokenValidateSeconds: 3600
+      clients[1]:
+        clientId: fujisoft
+        clientSecret: fujisoft
+        accessTokenValidateSeconds: 7200
+      storeType: jwt

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.mapper.BlUserMapper">
+    <sql id="dataColumns">
+            id ,
+            username ,
+            password ,
+            introduction ,
+            avatar ,
+            name 
+    </sql>
+
+    <insert id="insert" parameterType="com.fs.entity.BlUser"> 
+        INSERT INTO bl_user( 
+            id ,
+            username ,
+            password ,
+            introduction ,
+            avatar ,
+            name 
+        )VALUES(
+            #{id} ,
+            #{username} ,
+            #{password} ,
+            #{introduction} ,
+            #{avatar} ,
+            #{name} 
+       ) 
+    </insert> 
+
+    <delete id="deleteBatchIds" parameterType="String"> 
+        DELETE FROM bl_user  WHERE id IN
+        <foreach collection="ids" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+    
+    <update id="update" parameterType="com.fs.entity.BlUser"> 
+        UPDATE bl_user 
+            <set>
+               <if test="id != null">id= #{id},</if>
+               <if test="username != null">username= #{username},</if>
+               <if test="password != null">password= #{password},</if>
+               <if test="introduction != null">introduction= #{introduction},</if>
+               <if test="avatar != null">avatar= #{avatar},</if>
+               <if test="name != null">name= #{name},</if>
+            </set>
+         WHERE id = #{id}
+    </update>
+
+    <select id="queryByKey" parameterType="String" resultType="com.fs.entity.BlUser"> 
+        SELECT 
+           <include refid="dataColumns"/> 
+        FROM bl_user
+        WHERE id = #{id}
+    </select>
+    
+    <select id="loadUserByUsername" parameterType="String" resultType="com.fs.entity.BlUser"> 
+        SELECT 
+           <include refid="dataColumns"/> 
+        FROM bl_user
+        WHERE username = #{username}
+    </select>
+
+    <select id="queryByMap" parameterType="java.util.Map" resultType="com.fs.entity.BlUser"> 
+        SELECT 
+           <include refid="dataColumns"/> 
+        FROM bl_user
+        <where>
+            <if test="id != null">id= #{id}</if>
+            <if test="username != null">username= #{username}</if>
+            <if test="password != null">password= #{password}</if>
+            <if test="introduction != null">introduction= #{introduction}</if>
+            <if test="avatar != null">avatar= #{avatar}</if>
+            <if test="name != null">name= #{name}</if>
+        </where>
+    </select>
+
+    <select id="queryAllList" resultType="com.fs.entity.BlUser"> 
+        SELECT 
+           <include refid="dataColumns"/> 
+        FROM bl_user
+    </select>
+
+
+</mapper>

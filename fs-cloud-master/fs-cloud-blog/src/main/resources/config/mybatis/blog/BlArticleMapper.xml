@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.mapper.BlArticleMapper">
+    <sql id="dataColumns">
+            id ,
+            title ,
+            topic ,
+            tag ,
+            mdContent ,
+            htmlContent ,
+            summary ,
+            flag ,
+            pageView ,
+            create_user ,
+            create_date ,
+            update_user ,
+            update_date
+    </sql>
+
+    <insert id="insert" parameterType="com.fs.entity.BlArticle"> 
+        INSERT INTO bl_article( 
+            id ,
+            title ,
+            topic ,
+            tag ,
+            mdContent ,
+            htmlContent ,
+            summary ,
+            flag ,
+            pageView ,
+            create_user ,
+            create_date ,
+            update_user ,
+            update_date 
+        )VALUES(
+            #{id} ,
+            #{title} ,
+            #{topic} ,
+            #{tag} ,
+            #{mdcontent} ,
+            #{htmlcontent} ,
+            #{summary} ,
+            #{flag} ,
+            #{pageview} ,
+            #{createUser} ,
+            #{createDate} ,
+            #{updateUser} ,
+            #{updateDate} 
+       ) 
+    </insert> 
+
+    <update id="toDust" parameterType="String"> 
+        UPDATE bl_article SET flag = 2 WHERE id IN
+        <foreach collection="ids" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+    </update>
+    
+    <delete id="deleteBatchIds" parameterType="String"> 
+        DELETE FROM bl_article  WHERE id IN
+        <foreach collection="ids" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="com.fs.entity.BlArticle"> 
+        UPDATE bl_article 
+            <set>
+               <if test="id != null">id= #{id},</if>
+               <if test="title != null">title= #{title},</if>
+               <if test="topic != null">topic= #{topic},</if>
+               <if test="tag != null">tag= #{tag},</if>
+               <if test="mdcontent != null">mdContent= #{mdcontent},</if>
+               <if test="htmlcontent != null">htmlContent= #{htmlcontent},</if>
+               <if test="summary != null">summary= #{summary},</if>
+               <if test="flag != null">flag= #{flag},</if>
+               <if test="pageview != null">pageView= #{pageview},</if>
+               <if test="createUser != null">create_user= #{createUser},</if>
+               <if test="createDate != null">create_date= #{createDate},</if>
+               <if test="updateUser != null">update_user= #{updateUser},</if>
+               <if test="updateDate != null">update_date= #{updateDate},</if>
+            </set>
+         WHERE id = #{id}
+    </update>
+
+    <select id="queryByKey" parameterType="String" resultType="com.fs.entity.BlArticle"> 
+        SELECT 
+	        tc.topic_name as topic_name,
+	        ac.tag as tag,
+	        ac.title as title,
+	        ac.mdContent as mdcontent,
+	        ac.update_date as update_date ,
+	        ac.id as id,
+	        ac.artIndex as artIndex  
+	        FROM bl_article ac LEFT JOIN bl_topic tc on ac.topic = tc.id
+        WHERE ac.id = #{id}
+    </select>
+
+    <select id="queryByMap" parameterType="java.util.Map" resultType="com.fs.entity.BlArticle"> 
+        SELECT 
+        tc.topic_name as topic_name,
+        ac.tag as tag,
+        ac.title as title,
+        ac.summary as summary,
+        ac.update_date ,
+        ac.update_user as update_user , 
+        ac.id as id  
+        FROM bl_article ac LEFT JOIN bl_topic tc on ac.topic = tc.id
+        <where>
+            <if test="title != null">ac.title= #{title}</if>
+            <if test="flag != null">and ac.flag= #{flag}</if>
+           <if test="topic != null and topic != ''">and ac.topic= #{topic}</if>
+        </where>
+    </select>
+
+    <select id="queryAllList" resultType="com.fs.entity.BlArticle"> 
+        SELECT 
+           <include refid="dataColumns"/> 
+        FROM bl_article
+    </select>
+    
+    <select id="queryPerInfo" parameterType="int" resultType="com.fs.entity.BlArticle"> 
+		<![CDATA[ SELECT
+			id,
+			title
+		FROM
+			bl_article
+		WHERE
+			 artIndex < #{artIndex}
+		ORDER BY
+			artIndex DESC
+		LIMIT 0, 1]]>
+    </select>
+    
+    <select id="queryNextInfo" parameterType="int" resultType="com.fs.entity.BlArticle"> 
+		<![CDATA[ SELECT
+			id,
+			title
+		FROM
+			bl_article
+		WHERE
+			artIndex > #{artIndex}
+		ORDER BY
+			artIndex ASC
+		LIMIT 0,1 ]]>
+    </select>
+</mapper>
