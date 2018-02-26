@@ -68,4 +68,8 @@ public class BlArticle implements Serializable {
 	public void preUpdate(){
 		this.updateDate = DateUtils.getTime();
 	}
+	
+	public String[] getTagArray(){
+		return tag != null ? tag.split(",") : null;
+	}
 }
