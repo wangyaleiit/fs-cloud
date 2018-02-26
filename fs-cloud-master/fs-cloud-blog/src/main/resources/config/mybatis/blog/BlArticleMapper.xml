@@ -87,6 +87,7 @@
         SELECT 
 	        tc.topic_name as topic_name,
 	        ac.tag as tag,
+	        ac.topic as topic,
 	        ac.title as title,
 	        ac.mdContent as mdcontent,
 	        ac.update_date as update_date ,
@@ -100,6 +101,7 @@
         SELECT 
         tc.topic_name as topic_name,
         ac.tag as tag,
+	    ac.topic as topic,
         ac.title as title,
         ac.summary as summary,
         ac.update_date ,
