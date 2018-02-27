@@ -30,7 +30,7 @@ public class BlArticleService extends BaseService{
     public String saveOrUpdate(BlArticle blArticle) {
         if (blArticle.getSummary() == null || "".equals(blArticle.getSummary())) {
             String stripHtml = stripHtml(blArticle.getHtmlcontent());
-            blArticle.setSummary(stripHtml.substring(0, stripHtml.length() > 50 ? 50 : stripHtml.length()));
+            blArticle.setSummary(stripHtml.substring(0, stripHtml.length() > 150 ? 150 : stripHtml.length()));
         }
         String[] dynamicTags = blArticle.getDynamicTags();
         blArticle.setTag(StringUtils.join(dynamicTags,","));
