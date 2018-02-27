@@ -90,6 +90,7 @@
 	        ac.topic as topic,
 	        ac.title as title,
 	        ac.mdContent as mdcontent,
+	        ac.htmlcontent as htmlcontent,
 	        ac.update_date as update_date ,
 	        ac.id as id,
 	        ac.artIndex as artIndex  
