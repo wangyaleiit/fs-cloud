@@ -72,4 +72,9 @@ public class BlArticle implements Serializable {
 	public String[] getTagArray(){
 		return tag != null ? tag.split(",") : null;
 	}
+	
+	
+	public String[] getDynamicTags(){
+		return tag != null ? tag.split(",") : new String[0];
+	}
 }
