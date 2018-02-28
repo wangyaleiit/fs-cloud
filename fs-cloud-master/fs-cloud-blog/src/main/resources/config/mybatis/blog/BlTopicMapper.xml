@@ -79,7 +79,7 @@
 			t.update_date ,
 			COUNT(a.title) as articleNum	
 		FROM
-			bl_topic t LEFT JOIN bl_article a ON t.id = a.topic
-			GROUP BY t.id ORDER By t.update_date DESC
+			bl_topic t LEFT JOIN bl_article a ON t.id = a.topic and a.flag = 1
+			GROUP BY t.id ORDER By t.update_date DESC 
     </select>
 </mapper>
