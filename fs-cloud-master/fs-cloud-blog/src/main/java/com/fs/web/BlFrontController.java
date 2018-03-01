@@ -50,6 +50,24 @@ public class BlFrontController {
         return R.ok("result",datagrid);
     }
     
+    /**
+     * 时间轴
+     * @param bootStrapTable
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/queryTimeLine")
+    public R queryTimeLine(BootStrapTable bootStrapTable,@RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
+        PageHelper.startPage(pageNumber, pageSize);
+        List<Map<String,String>> timeLine = blArticleService.queryTimeLine();
+        PageInfo<Map<String,String>> pageInfo = new PageInfo<Map<String,String>>(timeLine);
+        Datagrid datagrid = new Datagrid(pageInfo.getTotal(),pageInfo.getList());
+        return R.ok("result",datagrid);
+    }
+    
+    
     @GetMapping("/queryByKey/{id}")
     public R queryByKey(BootStrapTable bootStrapTable,@PathVariable String id) {
     	BlArticle blArticle = blArticleService.queryByKey(id);

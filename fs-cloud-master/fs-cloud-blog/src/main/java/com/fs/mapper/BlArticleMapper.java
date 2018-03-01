@@ -1,5 +1,8 @@
 package com.fs.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +23,6 @@ public interface BlArticleMapper extends BaseMapper<BlArticle,String>{
 	BlArticle queryPerInfo(int artIndex);
 	
 	BlArticle queryNextInfo(int artIndex);
+	
+	List<Map<String,String>> queryTimeLine();
 }

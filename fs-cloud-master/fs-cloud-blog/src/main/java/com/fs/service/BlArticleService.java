@@ -79,6 +79,14 @@ public class BlArticleService extends BaseService{
     public List<BlArticle> queryByMap(Map<String, Object> columnMap) {
         return blArticleMapper.queryByMap(columnMap);
     }
+    
+    /**
+     * 时间轴
+     * @return
+     */
+    public List<Map<String,String>> queryTimeLine() {
+        return blArticleMapper.queryTimeLine();
+    }
 
     /**
      * 查询所有数据
