@@ -53,13 +53,41 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<dependency>
+				<groupId>com.fs.master</groupId>
+				<artifactId>fs-cloud-common</artifactId>
+				<version>${fs.cloud.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fs.master</groupId>
+				<artifactId>fs-cloud-security</artifactId>
+				<version>${fs.cloud.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fs.master</groupId>
+				<artifactId>fs-cloud-security-app</artifactId>
+				<version>${fs.cloud.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
+	<!--指定使用maven打包 -->
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>    <!--默认关掉单元测试 -->
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -90,6 +118,5 @@
 		<module>fs-cloud-common</module>
 		<module>fs-cloud-security</module>
 		<module>fs-cloud-security-app</module>
-		<module>fs-cloud-blog</module>
 	</modules>
 </project>
