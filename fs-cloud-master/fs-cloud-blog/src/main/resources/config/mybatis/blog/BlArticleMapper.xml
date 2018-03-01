@@ -147,4 +147,22 @@
 			artIndex ASC
 		LIMIT 0,1 ]]>
     </select>
+    
+    
+    <!-- 时间轴 -->
+    <select id="queryTimeLine" resultType="java.util.Map">
+    	SELECT
+    		a.id,
+    		a.title,
+    		a.topic,
+    		a.tag,
+    		t.topic_name,
+    		DATE_FORMAT(a.create_date,'%Y') AS create_year,
+    		DATE_FORMAT(a.create_date,'%Y-%m-%d') AS date_time
+    	FROM
+    		bl_article a LEFT JOIN bl_topic t ON a.topic = t.id
+    	WHERE
+    		a.flag = '1'
+    	ORDER BY a.create_date DESC
+    </select>
 </mapper>
