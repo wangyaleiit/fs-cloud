@@ -114,6 +114,7 @@
             <if test="flag != null">and ac.flag= #{flag}</if>
            <if test="topic != null and topic != ''">and ac.topic= #{topic}</if>
         </where>
+        ORDER BY  ac.update_date DESC
     </select>
 
     <select id="queryAllList" resultType="com.fs.entity.BlArticle"> 
