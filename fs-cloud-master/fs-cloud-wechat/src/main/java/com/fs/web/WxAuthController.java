@@ -92,10 +92,10 @@ public class WxAuthController {
 			@RequestParam(name = "msg_signature", required = false) String msgSignature) {
 		String out = null;
 		try {
-			this.logger.info(
-					"\n接收微信请求：[signature=[{}], encType=[{}], msgSignature=[{}],"
-							+ " timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ",
-					signature, encType, msgSignature, timestamp, nonce, requestBody);
+//			this.logger.info(
+//					"\n接收微信请求：[signature=[{}], encType=[{}], msgSignature=[{}],"
+//							+ " timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ",
+//					signature, encType, msgSignature, timestamp, nonce, requestBody);
 			if (!this.wxService.checkSignature(timestamp, nonce, signature)) {
 				throw new IllegalArgumentException("非法请求，可能属于伪造的请求！");
 			}
@@ -111,7 +111,7 @@ public class WxAuthController {
 				// AES加密的消息
 				WxMpXmlMessage inMessage = WxMpXmlMessage.fromEncryptedXml(requestBody,
 						this.wxService.getWxMpConfigStorage(), timestamp, nonce, msgSignature);
-				this.logger.debug("\n消息解密后内容为：\n{} ", inMessage.toString());
+//				this.logger.debug("\n消息解密后内容为：\n{} ", inMessage.toString());
 				WxMpXmlOutMessage outMessage = this.route(inMessage);
 				if (outMessage == null) {
 					return "";

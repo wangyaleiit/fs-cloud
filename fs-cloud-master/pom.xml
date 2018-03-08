@@ -68,7 +68,11 @@
 				<artifactId>fs-cloud-security-app</artifactId>
 				<version>${fs.cloud.version}</version>
 			</dependency>
-
+<!-- 			<dependency>
+				<groupId>com.fs.master</groupId>
+				<artifactId>fs-cloud-wechat</artifactId>
+				<version>${fs.cloud.version}</version>
+			</dependency> -->
 		</dependencies>
 	</dependencyManagement>
 	<!--指定使用maven打包 -->
@@ -118,5 +122,6 @@
 		<module>fs-cloud-common</module>
 		<module>fs-cloud-security</module>
 		<module>fs-cloud-security-app</module>
+	<!-- 	<module>fs-cloud-wechat</module> -->
 	</modules>
 </project>

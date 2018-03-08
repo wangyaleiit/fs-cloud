@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: fs-cloud-common
 Implementation-Version: 1.0.0-SNAPSHOT
-Built-By: dell
+Built-By: 860115003
 Implementation-Vendor-Id: com.fs.master
-Build-Jdk: 1.8.0_111
+Build-Jdk: 1.8.0_74
 Implementation-URL: http://projects.spring.io/spring-boot/fs-cloud-mas
  ter/fs-cloud-common/
 Created-By: Maven Integration for Eclipse

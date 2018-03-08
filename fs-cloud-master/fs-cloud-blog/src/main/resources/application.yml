@@ -7,8 +7,8 @@ spring:
   session:
     store-type: none 
   datasource:
-    druid: 
-      url: jdbc:mysql://localhost:3306/wyltest2?prepStmtCacheSize=517&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+    druid: useUnicode
+      url: jdbc:mysql://localhost:3306/wylcloud?prepStmtCacheSize=517&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
       driverClassName: com.mysql.jdbc.Driver
       username: root
       password: root

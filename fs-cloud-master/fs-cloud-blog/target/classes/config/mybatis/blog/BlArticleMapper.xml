@@ -87,8 +87,10 @@
         SELECT 
 	        tc.topic_name as topic_name,
 	        ac.tag as tag,
+	        ac.topic as topic,
 	        ac.title as title,
 	        ac.mdContent as mdcontent,
+	        ac.htmlcontent as htmlcontent,
 	        ac.update_date as update_date ,
 	        ac.id as id,
 	        ac.artIndex as artIndex  
@@ -100,6 +102,7 @@
         SELECT 
         tc.topic_name as topic_name,
         ac.tag as tag,
+	    ac.topic as topic,
         ac.title as title,
         ac.summary as summary,
         ac.update_date ,
@@ -111,6 +114,7 @@
             <if test="flag != null">and ac.flag= #{flag}</if>
            <if test="topic != null and topic != ''">and ac.topic= #{topic}</if>
         </where>
+        ORDER BY  ac.update_date DESC
     </select>
 
     <select id="queryAllList" resultType="com.fs.entity.BlArticle"> 
@@ -143,5 +147,23 @@
 		ORDER BY
 			artIndex ASC
 		LIMIT 0,1 ]]>
+    </select>
+    
+    
+    <!-- 时间轴 -->
+    <select id="queryTimeLine" resultType="java.util.Map">
+    	SELECT
+    		a.id,
+    		a.title,
+    		a.topic,
+    		a.tag,
+    		t.topic_name,
+    		DATE_FORMAT(a.create_date,'%Y') AS create_year,
+    		DATE_FORMAT(a.create_date,'%Y-%m-%d') AS date_time
+    	FROM
+    		bl_article a LEFT JOIN bl_topic t ON a.topic = t.id
+    	WHERE
+    		a.flag = '1'
+    	ORDER BY a.create_date DESC
     </select>
 </mapper>
