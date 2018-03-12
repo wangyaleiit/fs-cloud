@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.mapper.SysUserMapper">
+
+    <select id="queryByUserName" resultType="com.fs.entity.SysUser">  
+        select * from sys_user where account = #{loginName}  
+    </select>  
+    
+    <select id="queryList" resultType="com.fs.entity.SysUser">  
+		SELECT u.user_id,u.account,u.job_num,u.nickName,
+		CASE WHEN u.sex = 1 THEN '男' ELSE '女' END as sex ,u.position,
+		u.phone, date_format(u.update_date,'%Y-%m-%d') AS update_date,
+		d.`name` as deptName,d.dept_id from sys_user u LEFT JOIN sys_dept d ON u.del_flag = 0 AND d.dept_id = u.dept_id
+		<if test="deptFilter != null and deptFilter != ''">
+			AND u.dept_id in (${deptFilter})
+		</if>
+    </select>  
+    
+</mapper>

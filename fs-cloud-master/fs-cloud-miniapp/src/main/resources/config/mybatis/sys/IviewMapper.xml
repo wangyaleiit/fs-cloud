@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.mapper.SysIviewMapper">
+	<select id="queryListParentId" resultType="com.fs.entity.IviewComponent">
+		select dept.dept_id as 'value',dept.`name` as 'label' from sys_dept dept where parent_id = #{parentId} ORDER BY order_num
+	</select>
+	
+	<select id="queryRoleList" resultType="com.fs.entity.IviewComponent">
+		select role.role_id as 'value',role.role_name as 'label' from sys_role role
+	</select>
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.mapper.SysDeptMapper">
+
+	<select id="queryById" resultType="com.fs.entity.SysDept">
+		   select * from sys_dept where dept_id = #{deptId} and del_flag = 0
+	</select>
+
+	<select id="queryDetpIdList" resultType="java.lang.String">
+		select dept_id from sys_dept where parent_id = #{parentId}
+	</select>
+	
+    <select id="queryList" resultType="com.fs.entity.SysDept">
+		select d.*,(select p.name from sys_dept p where p.dept_id = d.parent_id) as parentName
+		from sys_dept d where d.del_flag = 0
+		<if test="deptFilter != null and deptFilter != ''">
+			and d.dept_id in (${deptFilter})
+		</if>
+	</select>
+	
+	<insert id="insert" parameterType="com.fs.entity.SysDept">
+		insert into sys_dept(
+		  dept_id,
+		  dept_no,
+		  parent_id,
+		  name,
+		  main_person, 
+		  phone,
+		  order_num,
+		  remarks,
+		  del_flag)
+		values(
+		  #{deptId},
+		  #{deptNo},
+		  #{parentId},
+		  #{name},
+		  #{mainPerson}, 
+		  #{phone},
+		  #{orderNum},
+		  #{remarks},
+		  '0')
+	</insert>
+	 
+	<update id="update" parameterType="com.fs.entity.SysDept">
+		update sys_dept 
+		<set>
+			<if test="deptNo != null">dept_no = #{deptNo},</if>
+			<if test="parentId != null">parent_id = #{parentId},</if>
+			<if test="name != null">name = #{name},</if>
+			<if test="mainPerson != null">main_person = #{mainPerson},</if>
+			<if test="phone != null">phone = #{phone},</if>
+			<if test="orderNum != null">order_num = #{orderNum},</if>
+			<if test="remarks != null">remarks = #{remarks}, </if>
+		</set>
+		where dept_id = #{deptId}
+	</update>
+	
+	<delete id="deleteById">
+		delete from sys_dept where dept_id = #{deptId}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,26 @@
+#spring: 
+#  application:
+#    name: wechat-provider-config
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: fs_cloud_config
+##      username: fujisoft
+##      password: 123456a
+##      label: master
+#      profile: dev
+#      fail-fast: true
+#      
+#eureka: 
+#  client:
+#    service-url:
+#      defaultZone: http://fujisoft:123456@localhost:1111/eureka
+      
+#wechat: 
+#  mp:
+#    appId:  wx963932d8debd9005
+#    secret: 3e80bbcde6006b4265c124a07c47525f
+#    token:  wewj555njks21s47gs5ws458sasad7
+#    aesKey: wRbcIQ7feDRhyEzsO5SmtM8Bnszxf7PVpFlznjeUDgv
+    
