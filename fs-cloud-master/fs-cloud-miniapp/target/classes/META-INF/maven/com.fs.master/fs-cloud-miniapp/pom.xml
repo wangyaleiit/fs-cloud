@@ -10,7 +10,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
     <artifactId>fs-cloud-miniapp</artifactId>
-	
+    
 	<properties>
         <weixin-java.version>2.9.0</weixin-java.version>
 	</properties>
@@ -31,6 +31,7 @@
             <version>${weixin-java.version}</version>
         </dependency>
 	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>
