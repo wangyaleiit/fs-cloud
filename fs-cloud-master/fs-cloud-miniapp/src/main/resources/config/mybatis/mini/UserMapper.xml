@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.mapper.MiniUserMapper">
+	<!-- 保存数据 -->
+	<insert id="insert" parameterType="com.fs.entity.MiniAppUser">
+		INSERT INTO mini_user(
+			id,
+			openId,
+			nickName,
+			gender,
+			city,
+			province,
+			country,
+			avatarUrl
+		)VALUES(
+			#{id},
+			#{wxMaUserInfo.openId},
+			#{wxMaUserInfo.nickName},
+			#{wxMaUserInfo.gender},
+			#{wxMaUserInfo.city},
+			#{wxMaUserInfo.province},
+			#{wxMaUserInfo.country},
+			#{wxMaUserInfo.avatarUrl})
+	</insert>
+	
+	<!-- 查询list -->
+	<select id="queryAllList" resultType="com.fs.entity.MiniAppUser">
+		SELECT
+			id,
+			openId,
+			nickName,
+			gender,
+			city,
+			province,
+			country,
+			avatarUrl,
+			userType,
+			createTime
+		FROM
+			mini_user
+		ORDER BY createTime desc
+	</select>
+	
+	<!-- 根据id查询数据 -->
+	<select id="queryByKey" parameterType="String" resultType="com.fs.entity.MiniAppUser">
+		SELECT
+			id,
+			openId,
+			nickName,
+			gender,
+			city,
+			province,
+			country,
+			avatarUrl,
+			userType,
+			createTime
+		FROM
+			mini_user
+		WHERE
+			id = #{id}
+	</select>
+	
+	<!-- 查询所有发布的数据 -->
+	<select id="queryListByKey" parameterType="String" resultType="com.fs.entity.MiniAppUser">
+		SELECT
+			id,
+			openId,
+			nickName,
+			gender,
+			city,
+			province,
+			country,
+			avatarUrl,
+			userType,
+			certFlag,
+			createTime
+		FROM
+			mini_user
+		WHERE
+			openId = #{openId}
+	</select>
+	
+	<!-- 查询是否有预约权限 -->
+	<select id="isSubscribeRole" parameterType="String" resultType="Integer">
+		SELECT
+			count(id)
+		FROM
+			mini_user
+		WHERE
+			openId = #{openId} and userType = '2'
+	</select>
+	
+	<!-- 查询是否已认证 -->
+	<select id="getCert" parameterType="String" resultType="String">
+		SELECT
+			certFlag
+		FROM
+			mini_user
+		WHERE
+			openId = #{openId}
+	</select>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="com.fs.entity.MiniAppUser">
+		UPDATE
+			mini_user
+		<set>
+ 			<if test="wxMaUserInfo != null">
+				<if test="wxMaUserInfo.nickName != null">nickName = #{wxMaUserInfo.nickName},</if>
+				<if test="wxMaUserInfo.gender != null">gender = #{wxMaUserInfo.gender},</if>
+				<if test="wxMaUserInfo.city != null">city = #{wxMaUserInfo.city},</if>
+				<if test="wxMaUserInfo.province != null">province = #{wxMaUserInfo.province},</if>
+				<if test="wxMaUserInfo.country != null">country = #{wxMaUserInfo.country},</if>	
+				<if test="wxMaUserInfo.avatarUrl != null">avatarUrl = #{wxMaUserInfo.avatarUrl},</if>
+ 			</if> 
+			<if test="userType != null">userType = #{userType},</if>
+			<if test="realName != null">realName = #{realName},</if>
+			<if test="cardNo != null">cardNo = #{cardNo},</if>
+			<if test="phoneNum != null">phoneNum = #{phoneNum},</if>
+			<if test="certFlag != null">certFlag = #{certFlag},</if>
+		</set>
+		<where>
+			<if test="id != null ">id=#{id}</if>
+			<if test="openId != null ">openId=#{openId}</if>
+		</where>
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteByKey" parameterType="String">
+		DELETE FROM
+			mini_user
+		WHERE
+			id = #{id}
+	</delete>
+</mapper>

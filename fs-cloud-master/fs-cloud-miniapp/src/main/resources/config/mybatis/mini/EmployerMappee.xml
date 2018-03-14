@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.mapper.MiniEmployerMapper">
+	<!-- 保存数据 -->
+	<insert id="insert" parameterType="com.fs.entity.MiniEmployer">
+		INSERT INTO mini_employer(
+			id,
+			openId,
+			chooseAres,
+			chooseAddress,
+			address,
+			tel,
+			startDate,
+			typeMoney,
+			workType
+		)VALUES(
+			#{id},
+			#{openId},
+			#{chooseAres},
+			#{chooseAddress},
+			#{address},
+			#{tel},
+			#{startDate},
+			#{typeMoney},
+			#{workType})
+	</insert>
+	
+	<!-- 查询list -->
+	<select id="queryAllList" resultType="com.fs.entity.MiniEmployer">
+		SELECT
+			id,
+			openId,
+			chooseAres,
+			chooseAddress,
+			address,
+			tel,
+			startDate,
+			typeMoney,
+			workType,
+			payStatus,
+			tradeNo
+		FROM
+			mini_employer
+		WHERE flag = '0' and payStatus = '2'
+		ORDER BY createTime desc
+	</select>
+	
+	<!-- 根据id查询数据 -->
+	<select id="queryByKey" parameterType="String" resultType="com.fs.entity.MiniEmployer">
+		SELECT
+			id,
+			openId,
+			chooseAres,
+			chooseAddress,
+			address,
+			tel,
+			startDate,
+			typeMoney,
+			workType,
+			payStatus,
+			tradeNo,
+			flag,
+			createTime,
+			refundTime
+		FROM
+			mini_employer
+		WHERE
+			id = #{id}
+	</select>
+	
+	<!-- 查询所有发布的数据 -->
+	<select id="queryListByKey" parameterType="String" resultType="com.fs.entity.MiniEmployer">
+		SELECT
+			id,
+			chooseAres,
+			chooseAddress,
+			address,
+			tel,
+			startDate,
+			typeMoney,
+			workType,
+			payStatus,
+			tradeNo,
+			flag
+		FROM
+			mini_employer
+		WHERE
+			openId = #{openId}
+		AND
+			flag != '2'
+	</select>
+	
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="com.fs.entity.MiniEmployer">
+		UPDATE
+			mini_employer
+		<set>
+			<if test="chooseAres != null">chooseAres = #{chooseAres},</if>
+			<if test="chooseAddress != null">chooseAddress = #{chooseAddress},</if>
+			<if test="address != null">address = #{address},</if>
+			<if test="tel != null">tel = #{tel},</if>
+			<if test="startDate != null">startDate = #{startDate},</if>
+			<if test="typeMoney != 0">typeMoney = #{typeMoney},</if>
+			<if test="workType != null">workType = #{workType},</if>
+			<if test="flag != null">flag = #{flag},</if>
+			<if test="payStatus != null">payStatus = #{payStatus},</if>
+			<if test="tradeNo != null">tradeNo = #{tradeNo},</if>
+			<if test="refundTime != null">refundTime = #{refundTime},</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteByKey" parameterType="String">
+		DELETE FROM
+			mini_employer
+		WHERE
+			id = #{id}
+	</delete>
+</mapper>

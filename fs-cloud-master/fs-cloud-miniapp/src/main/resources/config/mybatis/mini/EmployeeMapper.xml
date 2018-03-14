@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.mapper.MiniEmployeeMapper">
+	<!-- 保存数据 -->
+	<insert id="insert" parameterType="com.fs.entity.MiniEmployee">
+		INSERT INTO mini_employee(
+			id,
+			openId,
+			startTime,
+			endTime,
+			regionId,
+			regionText,
+			tel,
+			remarks
+		)VALUES(
+			#{id},
+			#{openId},
+			#{startTime},
+			#{endTime},
+			#{regionId},
+			#{regionText},
+			#{tel},
+			#{remarks})
+	</insert>
+	
+	<!-- 查询list -->
+	<select id="queryAllList" resultType="com.fs.entity.MiniEmployee">
+		SELECT
+			id,
+			openId,
+			startTime,
+			endTime,
+			regionId,
+			regionText,
+			tel,
+			remarks,
+			isShow
+		FROM
+			mini_employee
+		ORDER BY createTime desc
+	</select>
+	
+	<!-- 根据id查询数据 -->
+	<select id="queryByKey" parameterType="String" resultType="com.fs.entity.MiniEmployee">
+		SELECT
+			id,
+			openId,
+			startTime,
+			endTime,
+			regionId,
+			regionText,
+			tel,
+			remarks,
+			isShow,
+			createTime
+		FROM
+			mini_employee
+		WHERE
+			id = #{id}
+	</select>
+	
+	<!-- 查询所有发布的数据 -->
+	<select id="queryListByKey" parameterType="String" resultType="com.fs.entity.MiniEmployee">
+		SELECT
+			id,
+			openId,
+			startTime,
+			endTime,
+			regionId,
+			regionText,
+			tel,
+			remarks,
+			isShow,
+			createTime
+		FROM
+			mini_employee
+		WHERE
+			openId = #{openId}
+	</select>
+	
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="com.fs.entity.MiniEmployee">
+		UPDATE
+			mini_employee
+		<set>
+			<if test="openId != null">openId = #{openId},</if>
+			<if test="startTime != null">startTime = #{startTime},</if>
+			<if test="endTime != null">endTime = #{endTime},</if>
+			<if test="regionId != null">regionId = #{regionId},</if>
+			<if test="regionText != null">regionText = #{regionText},</if>
+			<if test="tel != null">tel = #{tel},</if>
+			<if test="remarks != null">remarks = #{remarks},</if>
+			<if test="isShow != null">isShow = #{isShow},</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteByKey" parameterType="String">
+		DELETE FROM
+			mini_employee
+		WHERE
+			id = #{id}
+	</delete>
+</mapper>

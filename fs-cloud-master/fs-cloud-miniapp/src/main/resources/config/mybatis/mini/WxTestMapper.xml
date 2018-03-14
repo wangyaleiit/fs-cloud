@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.mapper.WxTestMapper">
+    <sql id="dataColumns">
+            id ,
+            open_id ,
+            book_number ,
+            book_date ,
+            book_type ,
+            book_money ,
+            book_detail ,
+            create_by ,
+            create_date ,
+            update_by ,
+            update_date ,
+            del_flag 
+    </sql>
+
+    <insert id="insert" parameterType="com.fs.entity.WxTest"> 
+        INSERT INTO wx_test( 
+            id ,
+            open_id ,
+            book_number ,
+            book_date ,
+            book_type ,
+            book_money ,
+            book_detail ,
+            create_by ,
+            create_date ,
+            update_by ,
+            update_date ,
+            del_flag 
+        )VALUES(
+            #{id} ,
+            #{openId} ,
+            #{bookNumber} ,
+            #{bookDate} ,
+            #{bookType} ,
+            #{bookMoney} ,
+            #{bookDetail} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate} ,
+            #{delFlag} 
+       ) 
+    </insert> 
+
+    <delete id="deleteByKey" parameterType="String"> 
+        DELETE FROM wx_test  WHERE  id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.fs.entity.WxTest"> 
+        UPDATE wx_test 
+            <set>
+               <if test="id != null">id= #{id},</if>
+               <if test="openId != null">open_id= #{openId},</if>
+               <if test="bookNumber != null">book_number= #{bookNumber},</if>
+               <if test="bookDate != null">book_date= #{bookDate},</if>
+               <if test="bookType != null">book_type= #{bookType},</if>
+               <if test="bookMoney != null">book_money= #{bookMoney},</if>
+               <if test="bookDetail != null">book_detail= #{bookDetail},</if>
+               <if test="createBy != null">create_by= #{createBy},</if>
+               <if test="createDate != null">create_date= #{createDate},</if>
+               <if test="updateBy != null">update_by= #{updateBy},</if>
+               <if test="updateDate != null">update_date= #{updateDate},</if>
+               <if test="delFlag != null">del_flag= #{delFlag},</if>
+            </set>
+         WHERE id = #{id}
+    </update>
+
+    <select id="queryByKey" parameterType="String" resultType="com.fs.entity.WxTest"> 
+        SELECT 
+           <include refid="dataColumns"/> 
+        FROM wx_test
+        WHERE id = #{id}
+    </select>
+
+    <select id="queryByMap" parameterType="java.util.Map" resultType="com.fs.entity.WxTest"> 
+        SELECT 
+           <include refid="dataColumns"/> 
+        FROM wx_test
+        <where>
+            <if test="id != null">id= #{id}</if>
+            <if test="openId != null">open_id= #{openId}</if>
+            <if test="bookNumber != null">book_number= #{bookNumber}</if>
+            <if test="bookDate != null">book_date= #{bookDate}</if>
+            <if test="bookType != null">book_type= #{bookType}</if>
+            <if test="bookMoney != null">book_money= #{bookMoney}</if>
+            <if test="bookDetail != null">book_detail= #{bookDetail}</if>
+            <if test="createBy != null">create_by= #{createBy}</if>
+            <if test="createDate != null">create_date= #{createDate}</if>
+            <if test="updateBy != null">update_by= #{updateBy}</if>
+            <if test="updateDate != null">update_date= #{updateDate}</if>
+            <if test="delFlag != null">del_flag= #{delFlag}</if>
+        </where>
+    </select>
+
+    <select id="queryAllList" resultType="com.fs.entity.WxTest"> 
+        SELECT 
+           <include refid="dataColumns"/> 
+        FROM wx_test
+    </select>
+
+
+</mapper>

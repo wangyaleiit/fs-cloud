@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.mapper.MiniWorkTypeMapper">
+	<insert id="save" parameterType="com.fs.entity.MiniWorkType">
+		insert into mini_workType(
+		  id,
+		  typeName,
+		  typeMoney)
+		values(
+		  #{id},
+		  #{typeName},
+		  #{typeMoney})
+	</insert>
+	
+	<delete id="del" parameterType="String">
+		delete from mini_workType where id=#{id}
+	</delete>
+	
+	<update id="update" parameterType="com.fs.entity.MiniWorkType">
+		update mini_workType 
+		<set>
+			<if test="typeName != null">typeName = #{typeName},</if>
+			<if test="typeMoney != null">typeMoney = #{typeMoney},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="queryAllList" resultType="com.fs.entity.MiniWorkType">
+		select * from mini_workType
+	</select>
+	
+</mapper>
