@@ -59,6 +59,13 @@ public interface BaseMapper<T, ID> {
 	 */
 	 int update(T entity);
 	
+        /**
+	 * 根据主键删除数据
+	 * @param entity
+	 * @return
+	 */
+	 int deleteByKey(ID key);
+	
 	 /***
 	  * 根据非主键删除数据
 	  * @param columnMap
