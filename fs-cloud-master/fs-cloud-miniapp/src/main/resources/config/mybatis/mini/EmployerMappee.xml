@@ -88,6 +88,7 @@
 			openId = #{openId}
 		AND
 			flag != '2'
+		AND  payStatus in(1,2)
 	</select>
 	
 	
