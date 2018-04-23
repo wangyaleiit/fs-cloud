@@ -57,7 +57,7 @@ public class WxPayController {
     @Autowired
     private MiniEmployerService employerService;
     
-    @Value("wechat.miniapp.notifyURL")
+    @Value("${wechat.miniapp.notifyURL}")
     private String notifyURL;
     
 
